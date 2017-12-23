@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "dev": "DEBUG_COLORS=false DEBUG=todoapp:* NODE_ENV=development nodemon ./bin/www"
+    "dev": "DEBUG_COLORS=false DEBUG=todoapp:* NODE_ENV=development nodemon ./bin/www",
+    "prod" : "PORT=3001 NODE_ENV=production node ./bin/www"
   },
   "dependencies": {
     "bcrypt": "^1.0.3",

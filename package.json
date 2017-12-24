@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node ./bin/www",
     "dev": "DEBUG_COLORS=false DEBUG=todoapp:* NODE_ENV=development nodemon ./bin/www",
-    "prod": "PORT=3001 NODE_ENV=production node ./bin/www"
+    "prod": "NODE_ENV=production node ./bin/www"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",

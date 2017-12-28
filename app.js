@@ -14,7 +14,9 @@ mongoose.Promise = global.Promise
 app.use(morgan('dev'))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: false}))
-app.use(cors())
+app.use(cors({
+	       maxAge : 60 * 60 * 60 * 24
+             }))
 app.use(express.static(path.join(__dirname, 'public')))
 
 app.use('/api', require('./routes/index'))

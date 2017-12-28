@@ -76,13 +76,14 @@ module.exports = {
       .catch(err => next(boom.boomify(err)))
   },
   markTodo: function(req, res, next) {
+
     TodoModel.findOneAndUpdate(
       {
         _id: req.params.id,
         creator: req.userId
       },
       {
-        completed: req.query.completed == 'true' ? true : false
+        completed: req.body.completed 
       },
       {new: true}
     )

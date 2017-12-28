@@ -1,0 +1,9 @@
+{
+    "apps": [
+        {
+            "name": "todo-rest-api",
+            "script": "yarn",
+            "args" : "dev"
+        }
+    ]
+}

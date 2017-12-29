@@ -4,7 +4,7 @@ const UserModel = require('../models/user')
 
 module.exports = {
   signin: function(req, res, next) {
-    let {email, password} = req.body
+    let { email, password } = req.body
     if (!email || !password || email.length === 0 || password.length === 0) {
       return next(boom.badRequest())
     }
@@ -33,7 +33,7 @@ module.exports = {
               if (err) return next(boom.boomify(err))
               res.status(200).json({
                 message: 'Signin success',
-                data: {token},
+                data: { token },
               })
             })
           }
@@ -42,14 +42,16 @@ module.exports = {
       .catch(err => next(boom.boomify(err)))
   },
   signinFacebook: function(req, res, next) {
-    const {email, name} = req.fbProfile
+    const { email, name } = req.fbProfile
     UserModel.findOne({
       email,
     })
       .then(user => {
         if (!user) {
-          let password = Math.random().toString(36).substr(2, 6)
-          console.log('password',password)
+          let password = Math.random()
+            .toString(36)
+            .substr(2, 6)
+          console.log('password', password)
           return UserModel.create({
             name,
             email,
@@ -67,21 +69,32 @@ module.exports = {
           if (err) return next(boom.boomify(err))
           res.status(200).json({
             message: 'Signin with FB success',
-            data: {token},
+            data: { token },
           })
         })
       })
       .catch(err => next(boom.boomify(err)))
   },
   signup: function(req, res, next) {
-    UserModel.create({
-      name: req.body.name,
+    UserModel.findOne({
       email: req.body.email,
-      password: req.body.password,
     })
       .then(user => {
+        if (user) {
+          res.status(403).json({
+            message: 'Email already registered',
+          })
+        } else {
+          return UserModel.create({
+            name: req.body.name,
+            email: req.body.email,
+            password: req.body.password,
+          })
+        }
+      })
+      .then(user => {
         res.status(200).json({
-          message: 'User successfully created',
+          message: 'Signup Success',
           data: user,
         })
       })

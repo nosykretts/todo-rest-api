@@ -6,7 +6,7 @@ module.exports = {
   signin: function(req, res, next) {
     let {email, password} = req.body
     if (!email || !password || email.length === 0 || password.length === 0) {
-      return next(boom.badRequest())
+      return next(boom.badRequest('Username or password cannot be empty'))
     }
     UserModel.findOne({
       email: req.body.email,
